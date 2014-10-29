@@ -12,10 +12,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |vagrant|
     v.vmx["numvcpus"] = '2'
   end
 
-  if Vagrant.has_plugin?("vagrant-cachier")
-    vagrant.cache.scope = :box
-  end
-
   # Machine Configuration
   vagrant.vm.define 'dockerhost01' do |config|
     config.vm.network "private_network", ip: "10.100.199.201"
