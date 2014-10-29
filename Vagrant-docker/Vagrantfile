@@ -1,0 +1,70 @@
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |vagrant|
+
+  # VMware Configuration
+  vagrant.vm.provider "vmware_fusion" do |provider, override|
+    override.vm.box = "vmware-trusty64-20140902.box"
+    override.vm.box_url = 'https://s3-us-west-2.amazonaws.com/technolo-g/vagrant-boxes/ubuntu/vmware-trusty64-20140902.box'
+  end
+  vagrant.vm.provider "vmware_fusion" do |v|
+    v.vmx["memsize"] = '1024'
+    v.vmx["numvcpus"] = '2'
+  end
+
+  if Vagrant.has_plugin?("vagrant-cachier")
+    vagrant.cache.scope = :box
+  end
+
+  # Machine Configuration
+  vagrant.vm.define 'dockerhost01' do |config|
+    config.vm.network "private_network", ip: "10.100.199.201"
+    config.vm.network "forwarded_port", guest: 2375, host: 23201
+    config.vm.provision :ansible do |ansible|
+      ansible.playbook = 'ansible/docker_host.yml'
+      ansible.groups   = {'dockerhosts' => ['dockerhost01'], 'local' => ['localhost']}
+      ansible.raw_arguments = '--timeout=30'
+      ansible.host_key_checking = false
+    end
+  end
+  vagrant.vm.define 'dockerhost02' do |config|
+    config.vm.network "private_network", ip: "10.100.199.202"
+    config.vm.network "forwarded_port", guest: 2375, host: 23202
+    config.vm.provision :ansible do |ansible|
+      ansible.playbook = 'ansible/docker_host.yml'
+      ansible.groups   = {'dockerhosts' => ['dockerhost02'], 'local' => ['localhost']}
+      ansible.raw_arguments = '--timeout=30'
+      ansible.host_key_checking = false
+    end
+  end
+  vagrant.vm.define 'dockerhost03' do |config|
+    config.vm.network "private_network", ip: "10.100.199.203"
+    config.vm.network "forwarded_port", guest: 2375, host: 23203
+    config.vm.provision :ansible do |ansible|
+      ansible.playbook = 'ansible/docker_host.yml'
+      ansible.groups   = {'dockerhosts' => ['dockerhost03'], 'local' => ['localhost']}
+      ansible.raw_arguments = '--timeout=30'
+      ansible.host_key_checking = false
+    end
+  end
+  vagrant.vm.define 'dockerhost04' do |config|
+    config.vm.network "private_network", ip: "10.100.199.204"
+    config.vm.network "forwarded_port", guest: 2375, host: 23204
+    config.vm.provision :ansible do |ansible|
+      ansible.playbook = 'ansible/docker_host.yml'
+      ansible.groups   = {'dockerhosts' => ['dockerhost04'], 'local' => ['localhost']}
+      ansible.raw_arguments = '--timeout=30'
+      ansible.host_key_checking = false
+    end
+  end
+  vagrant.vm.define 'dockerhost05' do |config|
+    config.vm.network "private_network", ip: "10.100.199.205"
+    config.vm.network "forwarded_port", guest: 2375, host: 23205
+    config.vm.provision :ansible do |ansible|
+      ansible.playbook = 'ansible/docker_host.yml'
+      ansible.groups   = {'dockerhosts' => ['dockerhost05'], 'local' => ['localhost']}
+      ansible.raw_arguments = '--timeout=30'
+      ansible.host_key_checking = false
+    end
+  end
+end

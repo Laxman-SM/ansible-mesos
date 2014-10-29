@@ -1,0 +1,17 @@
+---
+
+- name: Run the registry
+  docker: >
+    name=registry
+    docker_url="{{ docker_host }}"
+    image=registry
+    env='SETTINGS_FLAVOR=s3,AWS_BUCKET=technolo-g-docker-registry,STORAGE_PATH=/registry,AWS_KEY=AKIAI4IKJ2MWRPUYPIYQ,AWS_SECRET=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,SEARCH_BACKEND=sqlalchemy'
+    ports=5000:5000
+
+- name: Run the Web Frontent for Registry
+  docker: >
+    name=registry-web
+    docker_url="{{ docker_host }}"
+    image='atcol/docker-registry-ui'
+    env='REG1=http://registry.test.mmcloud.net:5000/v1/'
+    ports=8080:8080
