@@ -1,0 +1,15 @@
+{
+    "id": "www", 
+    "container": {
+        "docker": {
+            "image": "mhamrah/mesos-sample"
+        },
+        "type": "DOCKER",
+        "volumes": []
+    },
+    "args": ["hello"],
+    "cpus": 1,
+    "mem": 512,
+    "instances": 1,
+    "ports": [0]
+}
