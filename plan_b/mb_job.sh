@@ -6,13 +6,16 @@ curl -X POST -H "Accept: application/json" -H "Content-Type: application/json" \
     "id": "www",
     "container": {
         "docker": {
-            "image": "mbajor/webapp"
+            "image": "mbajor/webapp",
+            "network": "BRIDGE",
+            "portMappings": [
+                { "containerPort": 80, "hostPort": 0, "servicePort": 9000, "protocol": "tcp" }
+            ]
         },
         "type": "DOCKER",
         "volumes": []
     },
     "cpus": 1,
     "mem": 512,
-    "instances": 1,
-    "ports": ["80"]
+    "instances": 4
 }'
