@@ -8,7 +8,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |vagrant|
     override.vm.box_url = 'https://s3-us-west-2.amazonaws.com/technolo-g/vagrant-boxes/ubuntu/vmware-trusty64-20140902.box'
   end
   vagrant.vm.provider "vmware_fusion" do |v|
-    v.vmx["memsize"] = '1024'
+    v.vmx["memsize"] = '2048'
     v.vmx["numvcpus"] = '2'
   end
 

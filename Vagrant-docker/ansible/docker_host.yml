@@ -8,7 +8,7 @@
   remote_user: "{{ user }}"
   roles:
     - role: base
-    - role: docker
+#    - role: docker
 
 #- hosts: localhost
 #  connection: local
