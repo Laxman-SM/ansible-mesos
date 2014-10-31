@@ -1,8 +1,10 @@
 - hosts: [mesos_masters]
   sudo: True
+  vars:
+    zk_hosts_string: "dockerhost01:2181,dockerhost02:2181,dockerhost03:2181"
   pre_tasks: 
     - name: Install Debian Packages
-      apt: pkg={{ item }} state=present
+      apt: pkg={{ item }} state=present force=yes
       with_items:
         - git
         - vim
@@ -13,7 +15,7 @@
       action: command rpm -Uvh --replacepkgs http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
       when: ansible_os_family == "RedHat"
     - name: Install Redhat Packages 
-      yum: pkg={{ item }} state=present
+      yum: pkg={{ item }} state=present force=yes
       with_items:
         - java7
         - git
@@ -36,7 +38,8 @@
 
 - hosts: [mesos_slaves]
   sudo: True
+  vars:
+    zk_hosts_string: "dockerhost01:2181,dockerhost02:2181,dockerhost03:2181"
   roles: 
-    - { role: 'ansible-docker', tags:['runtimes', 'docker'] }
     - { role: 'ansible-java8', tags:['runtimes', 'java'], when: ansible_os_family == 'Debian' }
     - { role: 'ansible-mesos', mesos_containerizers: "docker,mesos", zookeeper_hostnames: "{{ groups.mesos_masters | join(':' + zookeeper_client_port + ',')  }}:{{ zookeeper_client_port  }}",  mesos_install_mode: "slave", tags: ['mesos', 'platforms'] }

@@ -1,8 +1,8 @@
 [mesos_masters]
-10.100.199.201 zoo_id=1
-10.100.199.202 zoo_id=2
-10.100.199.203 zoo_id=3
+dockerhost01 zoo_id=1
+dockerhost02 zoo_id=2
+dockerhost03 zoo_id=3
 
 [mesos_slaves]
-10.100.199.204
-10.100.199.205
+dockerhost04
+dockerhost05
