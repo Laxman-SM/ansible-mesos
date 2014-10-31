@@ -3,7 +3,7 @@
 curl -X POST -H "Accept: application/json" -H "Content-Type: application/json" \
   10.100.199.201:8080/v2/apps -d '
 {
-    "id": "www",
+    "id": "matt",
     "container": {
         "docker": {
             "image": "mbajor/webapp",
@@ -16,6 +16,6 @@ curl -X POST -H "Accept: application/json" -H "Content-Type: application/json" \
         "volumes": []
     },
     "cpus": 1,
-    "mem": 512,
-    "instances": 2
+    "mem": 256,
+    "instances": 1
 }'
