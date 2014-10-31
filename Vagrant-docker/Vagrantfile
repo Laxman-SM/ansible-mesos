@@ -12,10 +12,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |vagrant|
     v.vmx["numvcpus"] = '2'
   end
 
+
+    vagrant.cache.scope = :box
+    vagrant.cache.synced_folder_opts = {
+      type: :nfs,
+      mount_options: ['rw', 'vers=3', 'tcp', 'nolock']
+    }
+
   # Machine Configuration
   vagrant.vm.define 'dockerhost01' do |config|
+    config.vm.hostname = 'dockerhost01'
     config.vm.network "private_network", ip: "10.100.199.201"
-    config.vm.network "forwarded_port", guest: 2375, host: 23201
+    config.vm.provision :hosts
     config.vm.provision :ansible do |ansible|
       ansible.playbook = 'ansible/docker_host.yml'
       ansible.groups   = {'dockerhosts' => ['dockerhost01'], 'local' => ['localhost']}
@@ -24,8 +32,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |vagrant|
     end
   end
   vagrant.vm.define 'dockerhost02' do |config|
+    config.vm.hostname = 'dockerhost02'
     config.vm.network "private_network", ip: "10.100.199.202"
-    config.vm.network "forwarded_port", guest: 2375, host: 23202
+    config.vm.provision :hosts
     config.vm.provision :ansible do |ansible|
       ansible.playbook = 'ansible/docker_host.yml'
       ansible.groups   = {'dockerhosts' => ['dockerhost02'], 'local' => ['localhost']}
@@ -34,8 +43,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |vagrant|
     end
   end
   vagrant.vm.define 'dockerhost03' do |config|
+    config.vm.hostname = 'dockerhost03'
     config.vm.network "private_network", ip: "10.100.199.203"
-    config.vm.network "forwarded_port", guest: 2375, host: 23203
+    config.vm.provision :hosts
     config.vm.provision :ansible do |ansible|
       ansible.playbook = 'ansible/docker_host.yml'
       ansible.groups   = {'dockerhosts' => ['dockerhost03'], 'local' => ['localhost']}
@@ -44,8 +54,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |vagrant|
     end
   end
   vagrant.vm.define 'dockerhost04' do |config|
+    config.vm.hostname = 'dockerhost04'
     config.vm.network "private_network", ip: "10.100.199.204"
-    config.vm.network "forwarded_port", guest: 2375, host: 23204
+    config.vm.provision :hosts
     config.vm.provision :ansible do |ansible|
       ansible.playbook = 'ansible/docker_host.yml'
       ansible.groups   = {'dockerhosts' => ['dockerhost04'], 'local' => ['localhost']}
@@ -54,8 +65,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |vagrant|
     end
   end
   vagrant.vm.define 'dockerhost05' do |config|
+    config.vm.hostname = 'dockerhost05'
     config.vm.network "private_network", ip: "10.100.199.205"
-    config.vm.network "forwarded_port", guest: 2375, host: 23205
+    config.vm.provision :hosts
     config.vm.provision :ansible do |ansible|
       ansible.playbook = 'ansible/docker_host.yml'
       ansible.groups   = {'dockerhosts' => ['dockerhost05'], 'local' => ['localhost']}
