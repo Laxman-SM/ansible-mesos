@@ -3,7 +3,8 @@
 ## Start the docker hosts (5)
 ```
 cd Vagrant-docker
-vagrant up
+workan
+vagrant up; vagrant provision --provision-with hosts
 ```
 
 ## Provision them
@@ -16,5 +17,12 @@ ansible-playbook -i hosts playbook.yml
 ## attempt to fire a container
 ```
 cd doit
-http POST http://10.100.199.201/v2/apps < node.json
+./job-1.sh
+./job-2.sh
 ```
+
+## check it out
+- http://10.100.199.201:5050
+- http://10.100.199.201:8080
+- http://www.mmcloud.net
+- http://matt.mmcloud.net

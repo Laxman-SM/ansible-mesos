@@ -15,7 +15,7 @@ curl -X POST -H "Accept: application/json" -H "Content-Type: application/json" \
         "type": "DOCKER",
         "volumes": []
     },
-    "cpus": 1,
-    "mem": 256,
+    "cpus": ".1",
+    "mem": 64,
     "instances": 1
 }'
