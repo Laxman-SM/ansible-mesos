@@ -6,7 +6,7 @@
   apt_repository: repo='deb http://repos.mesosphere.io/{{ansible_distribution|lower}} {{ansible_distribution_release|lower}} main' state=present
 
 - name: Install os packages
-  apt: pkg={{item}} state=present update_cache=yes
+  apt: pkg={{item}} state=present  force=yes
   with_items:
     - wget
     - curl
