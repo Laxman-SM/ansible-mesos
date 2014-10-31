@@ -1,10 +1,6 @@
 ---
-- name: Update apt cache
-  apt: update_cache=yes cache_valid_time={{apt_cache_timeout}}
-  tags: bootstrap
-
 - name: Apt install required system packages.
-  apt: pkg={{item}} state=installed
+  apt: pkg={{item}} state=installed force=yes
   tags: bootstrap
   with_items:
     - zookeeper
